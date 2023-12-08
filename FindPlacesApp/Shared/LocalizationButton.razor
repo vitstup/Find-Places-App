@@ -1,0 +1,23 @@
+﻿@using Code.Localization
+
+<button class="languageBtn @(languageId == Localization.language ? "selectedLngBtn" : "")" @onclick="SelectLanguage">
+	<img class="localizationImg" src="@languagedIconString" />
+	@if (languageId == Localization.language)
+	{
+		<!--<img class="selectedImg" src="images/selected.png"/>-->
+	}
+</button>
+
+@code{
+	public static Action languageChangedEvent;
+
+	[Parameter] public int languageId { get; set; }
+	[Parameter] public string languagedIconString { get; set; }
+
+	private async Task SelectLanguage()
+	{
+		await Localization.ChangeLanguage(languageId);
+
+		languageChangedEvent?.Invoke();
+	}
+}

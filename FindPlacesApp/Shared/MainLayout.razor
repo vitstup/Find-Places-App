@@ -1,0 +1,17 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page">
+    @Body
+</div>
+
+<CascadingValue Value="@ChangeState">
+    <SettingsBlock></SettingsBlock>
+</CascadingValue>
+
+@code{
+
+    private void ChangeState()
+    {
+       
+    }
+}

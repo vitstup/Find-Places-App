@@ -1,0 +1,260 @@
+/* /Pages/DetailsPage.razor.rz.scp.css */
+#detailsHeader[b-fhydlclhzm]{
+    display:flex;
+}
+
+#openInMaps[b-fhydlclhzm]{
+    margin-left:auto;
+    border:none;
+    padding:0 6vw;
+}
+
+#openInMapsText[b-fhydlclhzm]{
+
+}
+
+#map[b-fhydlclhzm]{
+
+}
+
+#calculateRoute[b-fhydlclhzm]{
+    margin-top: 3vh;
+    border:none;
+}
+
+#calculateRouteText[b-fhydlclhzm]{
+
+}
+
+#reviewsText[b-fhydlclhzm] {
+    margin-top: 2vh;
+}
+
+.reviewBlock[b-fhydlclhzm]{
+    width:100%;
+    margin-bottom: 2vh;
+}
+
+.botomUnderline[b-fhydlclhzm] {
+    margin-top: -1vh;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+}
+/* /Pages/Home.razor.rz.scp.css */
+#mainHeader[b-g2ddfnazbe]{
+    display:flex;
+}
+
+#distanceBlock[b-g2ddfnazbe]{
+    width:74%;
+}
+
+#findBtn[b-g2ddfnazbe]{
+    margin-left:auto;
+}
+
+#inputRadius[b-g2ddfnazbe] {
+    width: 90%;
+    height: 100%;
+    background:none;
+    border:none;
+    margin: 0 auto;
+    outline:none;
+}
+
+#placesList[b-g2ddfnazbe]{
+    width:100%;
+    padding:0;
+}
+/* /Shared/LocalizationButton.razor.rz.scp.css */
+.languageBtn[b-rjca236b5q]{
+    position:relative;
+
+    width:10vh;
+    height:10vh;
+    padding:0;
+
+    background:none;
+    border:none;
+}
+
+.selectedLngBtn[b-rjca236b5q]{
+   
+}
+
+.localizationImg[b-rjca236b5q] {
+    width: auto;
+    height: 100%;
+}
+
+.selectedImg[b-rjca236b5q]{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+
+    height: 50%;
+    width: auto;
+}
+/* /Shared/MainLayout.razor.rz.scp.css */
+.page[b-ep8m99fpi4] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0 7.5vw;
+    width:100%;
+}
+/* /Shared/PlaceBlock.razor.rz.scp.css */
+.placeItemMain[b-ivxw1an47o] {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1vh;
+}
+
+.placeItemImg[b-ivxw1an47o] {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    filter: contrast(80%);
+}
+
+.infoOnPlaceItemImg[b-ivxw1an47o] {
+    position: absolute;
+    top: 0;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 0 1vw;
+}
+
+.leftBlockOnImg[b-ivxw1an47o] {
+    display: flex;
+    align-items: center;
+}
+
+.categoryIcon[b-ivxw1an47o] {
+    width: 5vh;
+    height: 5vh;
+}
+
+.categoryText[b-ivxw1an47o] {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.placeAdress[b-ivxw1an47o] {
+    margin-top: -0.7vh;
+}
+
+.distanceText[b-ivxw1an47o] {
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.carousel[b-ivxw1an47o] {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carouselList[b-ivxw1an47o] {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    transition: margin-left 0.5s ease
+}
+
+.carouseleListItem[b-ivxw1an47o] {
+    flex: 0 0 auto; /* Чтобы каждый элемент занимал всю доступную ширину */
+    width: 100%; /* Занимает 100% ширины родительского контейнера */
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.controlBlocks[b-ivxw1an47o] {
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+    width: 100%;
+    display: flex;
+}
+
+.coroutineControl[b-ivxw1an47o]{
+    
+}
+
+#RightBtn[b-ivxw1an47o]{
+    margin-left:auto;
+}
+
+.controlImg[b-ivxw1an47o] {
+    width: 5vh;
+    height: 5vh;
+}
+/* /Shared/PlaceItem.razor.rz.scp.css */
+.placeItem[b-oqz1471u0u] {
+    margin-top: 3vh;
+    width: 100%;
+    list-style: none;
+    transition: border 0.3s ease-in-out;
+}
+
+    .placeItem:has(:hover)[b-oqz1471u0u] {
+        border: 1px solid black;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Тень при наведении */
+        background-color: lightgray;
+    }
+/* /Shared/SettingsBlock.razor.rz.scp.css */
+.settings[b-tcryswzjtn] {
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+    padding: 0 7.5vw;
+}
+
+.settingsOpenCLoseBlock[b-tcryswzjtn]{
+    width:100%;
+}
+
+.settingsOpenCLoseBtn[b-tcryswzjtn] {
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 5vh;
+    height: 5vh;
+
+    border:none;
+    background:none;
+}
+
+.settingsOpenCLoseBtn:hover[b-tcryswzjtn]{
+    
+}
+
+.settingsImg[b-tcryswzjtn]{
+    height: auto;
+    width: 100%;
+}
+
+.settingsMainBlock[b-tcryswzjtn] {
+    width: 100%;
+}
+
+.localizationText[b-tcryswzjtn]{
+    width:100%;
+    text-align:center;
+}
+
+.languagesBlock[b-tcryswzjtn] {
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    gap: 3vw;
+}

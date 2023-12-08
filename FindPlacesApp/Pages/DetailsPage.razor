@@ -1,0 +1,108 @@
+﻿@page "/details"
+@using Code;
+@using Code.Models;
+@using Code.Handlers;
+@using Code.Localization;
+
+@implements IDisposable;
+
+<div class="header" id="detailsHeader">
+	<button class="imgBtn" id="backBtn" @onclick="Back">
+		<img src="images/back.png" class="imgInBtn" />
+	</button>
+	<button class="grayBtnItem" id="openInMaps" @onclick="OpenInTheMap">
+		<p id="openInMapsText" class="btnMidText">@Localization.Localize("openInMaps")</p>
+	</button>
+</div>
+
+<PlaceBlock place="selectedHandler.Get()" carouselEnabled="true"></PlaceBlock>
+
+<iframe id="map" style="width:100%; height:24vh"
+		loading="lazy"
+		allowfullscreen
+		referrerpolicy="no-referrer-when-downgrade"
+		src="https://www.google.com/maps/embed/v1/view?key=@(Constants.gMapsApiKey)
+    &center=@($"{selectedHandler.Get().place.latitude.ToString(System.Globalization.CultureInfo.InvariantCulture)},{selectedHandler.Get().place.longitude.ToString(System.Globalization.CultureInfo.InvariantCulture)}")
+    &zoom=18.5">
+</iframe>
+
+<button class="grayBtnItem" id="calculateRoute" @onclick="BuildRoute">
+	<p id="calculateRouteText" class="btnMidText">@Localization.Localize("buildRoute")</p>
+</button>
+
+<h3 id="reviewsText">@Localization.Localize("reviews")</h3>
+
+@if (selectedHandler.Get().tips != null && selectedHandler.Get().tips.Length > 0)
+{
+	for (int i = 0; i < selectedHandler.Get().tips.Length; i++)
+	{
+		<div class="reviewBlock">
+			<p class="reviewText">@selectedHandler.Get().tips[i]</p>
+			@if (i != selectedHandler.Get().tips.Length - 1)
+			{
+				<div class="botomUnderline"></div>
+			}
+		</div>
+	}
+}
+else
+{
+	<p id="noReviews">@Localization.Localize("noReviews")</p>
+}
+
+@code{
+	[Inject] private SelectedPlaceHandler selectedHandler { get; set; }
+	[Inject] private NavigationManager navManager { get; set; }
+	[Inject] private IJSRuntime jsRuntime { get; set; }
+
+	private void Back()
+	{
+		navManager.NavigateTo("/");
+	}
+
+	private Location GetLocation()
+	{
+		return new Location(selectedHandler.Get().place.latitude, selectedHandler.Get().place.longitude);
+	}
+
+	private async Task OpenInTheMap()
+	{
+		var options = new MapLaunchOptions() { Name = selectedHandler.Get().place.placeName};
+		await TryToOpenMap(options);
+	}
+
+	private async Task BuildRoute()
+	{
+		var options = new MapLaunchOptions() { Name = selectedHandler.Get().place.placeName, NavigationMode = NavigationMode.Walking};
+		await TryToOpenMap(options);
+	}
+
+	private async Task TryToOpenMap(MapLaunchOptions options)
+	{
+		var location = GetLocation();
+
+		try
+		{
+			await Map.Default.OpenAsync(location, options);
+		}
+		catch (Exception ex)
+		{
+			await AlertDisplayer.DisplayError($"Exception: {ex}");
+		}
+	}
+
+	protected override void OnInitialized()
+	{
+		LocalizationButton.languageChangedEvent += ChangeState;
+	}
+
+	public void Dispose()
+	{
+		LocalizationButton.languageChangedEvent -= ChangeState;
+	}
+
+	private void ChangeState()
+	{
+		StateHasChanged();
+	}
+}

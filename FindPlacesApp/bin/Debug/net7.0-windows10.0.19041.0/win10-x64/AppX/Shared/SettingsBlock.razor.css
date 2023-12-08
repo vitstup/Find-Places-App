@@ -1,0 +1,48 @@
+﻿.settings {
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+    padding: 0 7.5vw;
+}
+
+.settingsOpenCLoseBlock{
+    width:100%;
+}
+
+.settingsOpenCLoseBtn {
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 5vh;
+    height: 5vh;
+
+    border:none;
+    background:none;
+}
+
+.settingsOpenCLoseBtn:hover{
+    
+}
+
+.settingsImg{
+    height: auto;
+    width: 100%;
+}
+
+.settingsMainBlock {
+    width: 100%;
+}
+
+.localizationText{
+    width:100%;
+    text-align:center;
+}
+
+.languagesBlock {
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    gap: 3vw;
+}

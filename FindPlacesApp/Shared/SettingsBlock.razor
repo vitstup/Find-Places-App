@@ -1,0 +1,45 @@
+﻿@using Code.Localization;
+
+@implements IDisposable;
+
+<div class="settings" style="@(isSettingsOpened ? "background-color: white;" : "")">
+	<div class="settingsOpenCLoseBlock">
+		<button class="settingsOpenCLoseBtn" @onclick="SettingsBtnAction">
+			<img class="settingsImg" src="@(isSettingsOpened ? "images/down.png" : "images/up.png ")" />
+		</button>
+	</div>
+
+	<div class="settingsMainBlock" style="@(isSettingsOpened ? "display: block;" : "display: none;")">
+		<h3 class="localizationText">@Localization.Localize("language")</h3>
+		<div class="languagesBlock">
+			<LocalizationButton languageId="0" languagedIconString="images/LocalizationFlags/eng.png"></LocalizationButton>
+			<LocalizationButton languageId="1" languagedIconString="images/LocalizationFlags/rus.png"></LocalizationButton>
+		</div>
+	</div>
+</div>
+
+@code{
+	[Inject] private IJSRuntime jsRuntime { get; set; }
+
+	private bool isSettingsOpened = false;
+
+	private void SettingsBtnAction()
+	{
+		isSettingsOpened = !isSettingsOpened;
+	}
+
+	protected override void OnInitialized()
+	{
+		LocalizationButton.languageChangedEvent += ChangeState;
+	}
+
+	public void Dispose()
+	{
+		LocalizationButton.languageChangedEvent -= ChangeState;
+	}
+
+	private void ChangeState()
+	{
+		StateHasChanged();
+	}
+}

@@ -1,0 +1,20 @@
+﻿@using Code.Models;
+@using Code.Handlers;
+
+<li class="placeItem" @onclick="GoToDetails">
+	<PlaceBlock place="place"></PlaceBlock>
+</li>
+
+@code{
+	[Inject] private NavigationManager navManager { get; set; }
+	[Inject] private SelectedPlaceHandler placeHandler { get; set; }
+
+	[Parameter] public FullPlace place { get; set; }
+
+	public void GoToDetails()
+	{
+		placeHandler.Save(place);
+
+		navManager.NavigateTo("/details");
+	}
+}

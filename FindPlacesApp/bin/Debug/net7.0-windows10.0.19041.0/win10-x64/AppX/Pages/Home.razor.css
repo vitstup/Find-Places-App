@@ -1,0 +1,25 @@
+﻿#mainHeader{
+    display:flex;
+}
+
+#distanceBlock{
+    width:74%;
+}
+
+#findBtn{
+    margin-left:auto;
+}
+
+#inputRadius {
+    width: 90%;
+    height: 100%;
+    background:none;
+    border:none;
+    margin: 0 auto;
+    outline:none;
+}
+
+#placesList{
+    width:100%;
+    padding:0;
+}

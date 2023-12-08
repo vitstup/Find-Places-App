@@ -1,0 +1,114 @@
+﻿@page "/"
+@using Code.Getters;
+@using Code.Models;
+@using Code.Handlers;
+@using Code.Localization;
+
+@implements IDisposable;
+
+<div class="header" id="mainHeader">
+	<div class="grayBtnItem" id="distanceBlock">
+		<input type="number" placeholder="@Localization.Localize("distText")" id="inputRadius" @bind="radius" />
+	</div>
+	<button class="imgBtn" id="findBtn" @onclick="FindPlaces"> 
+		@if (isFindingRigthNow)
+		{
+			<div class="loader innerLoader"></div>
+		}
+		else
+		{
+			<img src="images/find.png" class="imgInBtn" />
+		}
+	</button>
+</div>
+
+@if (previousRequest != null)
+{
+	<p id="findedItemsText">@($"{@Localization.Localize("finded")} {(previousRequest.places == null ? 0 : previousRequest.places.Length)} {Localization.Localize("interestingPlacesText")} {previousRequest.radius} {Localization.Localize("metrs")}")</p>
+
+}
+@if (previousRequest == null || previousRequest.places == null || previousRequest.places.Length == 0)
+{
+	if (isFindingRigthNow)
+	{
+		<div class="loader centredLoader"></div>
+	}
+	else
+	{
+		<h4 class="previewText">@Localization.Localize("startFinding")</h4>
+	}
+}
+
+<ul id="placesList">
+	@if (previousRequest != null && previousRequest.places != null && previousRequest.places.Length > 0)
+	{
+		for (int i = 0; i < previousRequest.places.Length; i++)
+		{
+			<PlaceItem place="previousRequest.places[i]"></PlaceItem>
+		}
+	}
+</ul>
+
+@code {
+	[Inject] private LastRequestHandler lastRequestHandler { get; set; }
+
+	private LocationGetter locationGetter = new LocationGetter();
+
+	private RequestInfo previousRequest;
+
+	private string radius;
+
+	private bool isFindingRigthNow;
+
+	private async Task FindPlaces()
+	{
+		if (isFindingRigthNow) return;
+
+		var radius = int.TryParse(this.radius, out int result) ? result : 500;
+
+		if (radius < 50) radius = 50;
+		if (radius > 100000) radius = 100000;
+
+		this.radius = radius.ToString();
+
+		isFindingRigthNow = true;
+
+		var location = await locationGetter.GetLocation();
+
+		if (location == null)
+		{
+			isFindingRigthNow = false;
+			return;
+		}
+
+		NearFullPlacesGetter getter = new NearFullPlacesGetter();
+
+		RequestInfo currentRequest = new RequestInfo();
+
+		currentRequest.radius = radius;
+
+		currentRequest.places = await getter.GetNearPlaces(location.Latitude, location.Longitude, radius, 12, 25);
+
+		previousRequest = currentRequest;
+
+		lastRequestHandler.Save(currentRequest);
+
+		isFindingRigthNow = false;
+	}
+
+	protected override void OnInitialized()
+	{
+		previousRequest = lastRequestHandler.Get();
+		LocalizationButton.languageChangedEvent += ChangeState;
+	}
+
+	public void Dispose()
+	{
+		LocalizationButton.languageChangedEvent -= ChangeState;
+	}
+
+	private void ChangeState()
+	{
+		StateHasChanged();
+	}
+}

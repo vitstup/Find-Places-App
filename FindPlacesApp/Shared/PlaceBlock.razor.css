@@ -1,0 +1,89 @@
+﻿.placeItemMain {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1vh;
+}
+
+.placeItemImg {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    filter: contrast(80%);
+}
+
+.infoOnPlaceItemImg {
+    position: absolute;
+    top: 0;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 0 1vw;
+}
+
+.leftBlockOnImg {
+    display: flex;
+    align-items: center;
+}
+
+.categoryIcon {
+    width: 5vh;
+    height: 5vh;
+}
+
+.categoryText {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.placeAdress {
+    margin-top: -0.7vh;
+}
+
+.distanceText {
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carouselList {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    transition: margin-left 0.5s ease
+}
+
+.carouseleListItem {
+    flex: 0 0 auto; /* Чтобы каждый элемент занимал всю доступную ширину */
+    width: 100%; /* Занимает 100% ширины родительского контейнера */
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.controlBlocks {
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+    width: 100%;
+    display: flex;
+}
+
+.coroutineControl{
+    
+}
+
+#RightBtn{
+    margin-left:auto;
+}
+
+.controlImg {
+    width: 5vh;
+    height: 5vh;
+}

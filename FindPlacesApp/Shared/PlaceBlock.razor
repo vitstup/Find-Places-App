@@ -1,0 +1,84 @@
+﻿@using Code.Models
+@implements IAsyncDisposable
+
+<div class="placeItemMain">
+
+	<div class="carousel">
+		@if (place.photos != null && place.photos.Length > 0)
+		{
+			if (carouselEnabled)
+			{
+				<ul class="carouselList">
+					@for (int i = 0; i < place.photos.Length; i++)
+					{
+						<li class="carouseleListItem">
+							<img src="@place.photos[i]" class="placeItemImg" />
+						</li>
+					}
+				</ul>
+				if (place.photos.Length > 1)
+				{
+					<div class="controlBlocks">
+						<btn class="coroutineControl" id="LeftBtn" @onclick="GoLeft">
+							<img class="controlImg" src="images/controlLeft.png" />
+						</btn>
+						<btn class="coroutineControl" id="RightBtn" @onclick="GoRight">
+							<img class="controlImg" src="images/controlRight.png" />
+						</btn>
+					</div>
+				}
+			}
+			else
+			{
+				<img src="@place.photos[0]" class="placeItemImg" />
+			}
+		}
+		else
+		{
+			<img src= "images/PhotoNotFound.png" class="placeItemImg" />
+		}
+	</div>
+
+	<div class="infoOnPlaceItemImg">
+		<div class="leftBlockOnImg">
+			<img src="@place.place.categoryIcon" class="categoryIcon" />
+			<h5 class="categoryText textWithShadow">@place.place.categoryName</h5>
+		</div>
+		<h5 class="distanceText textWithShadow">@(place.place.currentDistance)M</h5>
+	</div>
+</div>
+<h3 class="placeName">@place.place.placeName</h3>
+<h5 class="placeAdress">@($"{place.place.city} {place.place.adress}")</h5>
+
+@code {
+	[Parameter] public bool carouselEnabled { get; set; }
+	[Parameter] public FullPlace place { get; set; }
+
+	[Inject] private IJSRuntime jsRuntime { get; set; }
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			if (carouselEnabled && place.photos != null && place.photos.Length > 1)
+			{
+				await jsRuntime.InvokeVoidAsync("initCarousel");
+			}
+		}
+	}
+
+	private async Task GoLeft()
+	{
+		await jsRuntime.InvokeVoidAsync("scrollLeft");
+	}
+
+	private async Task GoRight()
+	{
+		await jsRuntime.InvokeVoidAsync("scrollRight");
+	}
+
+	public async ValueTask DisposeAsync()
+	{
+		await jsRuntime.InvokeVoidAsync("stopCarousel");
+	}
+}

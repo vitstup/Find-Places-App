@@ -1,0 +1,13 @@
+﻿.placeItem {
+    margin-top: 3vh;
+    width: 100%;
+    list-style: none;
+    transition: border 0.3s ease-in-out;
+}
+
+    .placeItem:has(:hover) {
+        border: 1px solid black;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Тень при наведении */
+        background-color: lightgray;
+    }
